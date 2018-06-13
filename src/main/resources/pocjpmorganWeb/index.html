@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Competitors CorDapp</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.1/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/createCompetitorModal.js"></script>
+</head>
+<body ng-app="pocjpmorganAppModule" ng-controller="pocjpmorganAppCtrl as pocjpmorganApp">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">{{pocjpmorganApp.thisNode}}</a>
+            </div>
+            <button ng-click="pocjpmorganApp.openCreateCompetitorModal()" type="button" class="btn btn-primary navbar-btn">Submit Competitor</button>
+            <button ng-click="pocjpmorganApp.refresh()" type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-refresh"></span></button>
+        </div>
+    </nav>
+    <script type="text/ng-template" id="createCompetitorModal.html">
+        <div class="modal-header">
+            <h4 class="modal-title">Submit new Competitor</h4>
+        </div>
+        <form>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="challengeName" class="control-label">Challenge:</label>
+                    <select ng-model="createCompetitorModal.form.challengeName" class="form-control" id="challengeName"
+                            ng-options="challenge as challenge for challenge in createCompetitorModal.challenges">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="challengeYear" class="control-label">Year:</label>
+                    <select ng-model="createCompetitorModal.form.challengeYear" class="form-control" id="challengeYear"
+                            ng-options="year as year for year in createCompetitorModal.years">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="counterparty" class="control-label">Assistant:</label>
+                    <select ng-model="createCompetitorModal.form.counterparty" class="form-control" id="counterparty"
+                            ng-options="node as node for node in createCompetitorModal.nodes">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="control-label">Name (String):</label>
+                    <input type="text" ng-model="createCompetitorModal.form.name" class="form-control" id="name">
+                </div>
+                <div class="form-group">
+                    <label for="surname" class="control-label">Surname (String):</label>
+                    <input type="text" ng-model="createCompetitorModal.form.surname" class="form-control" id="surname">
+                </div>
+                <div class="form-group">
+                    <label for="employee" class="control-label">Employee (String):</label>
+                    <input type="text" ng-model="createCompetitorModal.form.employee" class="form-control" id="employee">
+                </div>
+                <div class="form-group">
+                    <label for="result" class="control-label">Result (Double):</label>
+                    <input type="text" ng-model="createCompetitorModal.form.result" class="form-control" id="result">
+                </div>
+                <div ng-show="createCompetitorModal.formError" class="form-group">
+                    <div class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        Enter valid Competitor submit parameters
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="createCompetitorModal.cancel()" type="button" class="btn btn-default">Close</button>
+                <button ng-click="createCompetitorModal.create()" type="button" class="btn btn-primary">Submit Competitor</button>
+            </div>
+        </form>
+    </script>
+    <script type="text/ng-template" id="createCompetitorMsgModal.html">
+        <div class="modal-body" id="create-competitor-modal-body">
+            {{ createCompetitorMsgModal.message }}
+        </div>
+    </script>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div ng-show="!pocjpmorganApp.competitors.length" class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">There are no recorded Competitors</h3>
+                </div>
+                <div class="panel-body">Use the "Submit Competitor" button to submit a Competitor.</div>
+            </div>
+            <div ng-show="pocjpmorganApp.competitors.length" class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Recorded Competitors:</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Employee</th>
+                            <th>Challenge</th>
+                            <th>Year</th>
+                            <th>Challenge Supervisor</th>
+                            <th>Challenge Assistant</th>
+                            <th>Result</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="competitor in pocjpmorganApp.competitors">
+                            <td class="vert-align">{{competitor.name}}</td>
+                            <td class="vert-align">{{competitor.surname}}</td>
+                            <td class="vert-align">{{competitor.employee}}</td>
+                            <td class="vert-align">{{competitor.challengeName}}</td>
+                            <td class="vert-align">{{competitor.challengeYear}}</td>
+                            <td class="vert-align">{{competitor.supervisor}}</td>
+                            <td class="vert-align">{{competitor.assistant}}</td>
+                            <td class="vert-align">{{competitor.result}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</body>
+</html>
