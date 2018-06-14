@@ -119,6 +119,20 @@ class CompetitorStateTests : UtilsTests() {
     }
 
     @Test
+    fun `Has CompetitorState a gender field of correct type`() {
+        // Does the gender field exist?
+        CompetitorState::class.java.getDeclaredField("gender")
+        // Is the gender field of the correct type?
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("gender").type, Double::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("gender").type, Float::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("gender").type, Long::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("gender").type, Int::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("gender").type, Short::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("gender").type, Byte::class.java)
+        assertEquals(CompetitorState::class.java.getDeclaredField("gender").type, String::class.java)
+    }
+
+    @Test
     fun `Has CompetitorState a employee field of correct type`() {
         // Does the employee field exist?
         CompetitorState::class.java.getDeclaredField("employee")
@@ -126,10 +140,52 @@ class CompetitorStateTests : UtilsTests() {
         assertNotEquals(CompetitorState::class.java.getDeclaredField("employee").type, Double::class.java)
         assertNotEquals(CompetitorState::class.java.getDeclaredField("employee").type, Float::class.java)
         assertNotEquals(CompetitorState::class.java.getDeclaredField("employee").type, Long::class.java)
-        assertNotEquals(CompetitorState::class.java.getDeclaredField("employee").type, Int::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("employee").type, String::class.java)
         assertNotEquals(CompetitorState::class.java.getDeclaredField("employee").type, Short::class.java)
         assertNotEquals(CompetitorState::class.java.getDeclaredField("employee").type, Byte::class.java)
-        assertEquals(CompetitorState::class.java.getDeclaredField("employee").type, String::class.java)
+        assertEquals(CompetitorState::class.java.getDeclaredField("employee").type, Int::class.java)
+    }
+
+    @Test
+    fun `Has CompetitorState a place field of correct type`() {
+        // Does the place field exist?
+        CompetitorState::class.java.getDeclaredField("place")
+        // Is the place field of the correct type?
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("place").type, Double::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("place").type, Float::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("place").type, Long::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("place").type, String::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("place").type, Short::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("place").type, Byte::class.java)
+        assertEquals(CompetitorState::class.java.getDeclaredField("place").type, Int::class.java)
+    }
+
+    @Test
+    fun `Has CompetitorState a genderPlace field of correct type`() {
+        // Does the genderPlace field exist?
+        CompetitorState::class.java.getDeclaredField("genderPlace")
+        // Is the genderPlace field of the correct type?
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("genderPlace").type, Double::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("genderPlace").type, Float::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("genderPlace").type, Long::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("genderPlace").type, String::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("genderPlace").type, Short::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("genderPlace").type, Byte::class.java)
+        assertEquals(CompetitorState::class.java.getDeclaredField("genderPlace").type, Int::class.java)
+    }
+
+    @Test
+    fun `Has CompetitorState a bib field of correct type`() {
+        // Does the bib field exist?
+        CompetitorState::class.java.getDeclaredField("bib")
+        // Is the bib field of the correct type?
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("bib").type, Double::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("bib").type, Float::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("bib").type, Long::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("bib").type, String::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("bib").type, Short::class.java)
+        assertNotEquals(CompetitorState::class.java.getDeclaredField("bib").type, Byte::class.java)
+        assertEquals(CompetitorState::class.java.getDeclaredField("bib").type, Int::class.java)
     }
 
     @Test

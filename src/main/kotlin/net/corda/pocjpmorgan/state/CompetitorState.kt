@@ -24,6 +24,9 @@ import net.corda.pocjpmorgan.schema.CompetitorSchemaV1
  * @param [name] The Competitor's name.
  * @param [surname] The Competitor's surname.
  * @param [employee] The Competitor's employee number.
+ * @param [place] Global position taking into account all competitors regardless of gender.
+ * @param [genderPlace] Position by gender (taking into account only women or only men).
+ * @param [bib] Dorsal. Unique identifier of the competitor in the challenge.
  * @param [result] The result that the Competitor obtains in the Challenge.
  * @param [participants] The public keys of the involved parties managing the Challenge, Supervisor and Assistant.
  *        This property holds a list of the nodes which can "use" this state in a valid transaction. In this case, the
@@ -40,7 +43,11 @@ data class CompetitorState(val challengeName: String,
                            val assistant: Party,
                            val name: String,
                            val surname: String,
-                           val employee: String,
+                           val gender: String,
+                           val employee: Int,
+                           val place: Int,
+                           val genderPlace: Int,
+                           val bib: Int,
                            val result: Double,
                            override val participants: List<AbstractParty> = listOf(supervisor, assistant),
                            override val linearId: UniqueIdentifier = UniqueIdentifier())
@@ -64,10 +71,13 @@ data class CompetitorState(val challengeName: String,
                                                                              this.assistant.name.toString(),
                                                                              this.name,
                                                                              this.surname,
+                                                                             this.gender,
                                                                              this.employee,
+                                                                             this.place,
+                                                                             this.genderPlace,
+                                                                             this.bib,
                                                                              this.result,
                                                                              this.linearId.id)
-
             else -> throw IllegalArgumentException("Unrecognised schema $schema")
         }
     }

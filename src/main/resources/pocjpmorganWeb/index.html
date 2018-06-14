@@ -18,118 +18,147 @@
     <script src="js/createCompetitorModal.js"></script>
 </head>
 <body ng-app="pocjpmorganAppModule" ng-controller="pocjpmorganAppCtrl as pocjpmorganApp">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">{{pocjpmorganApp.thisNode}}</a>
-            </div>
-            <button ng-click="pocjpmorganApp.openCreateCompetitorModal()" type="button" class="btn btn-primary navbar-btn">Submit Competitor</button>
-            <button ng-click="pocjpmorganApp.refresh()" type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-refresh"></span></button>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">{{pocjpmorganApp.thisNode}}</a>
         </div>
-    </nav>
-    <script type="text/ng-template" id="createCompetitorModal.html">
-        <div class="modal-header">
-            <h4 class="modal-title">Submit new Competitor</h4>
-        </div>
-        <form>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="challengeName" class="control-label">Challenge:</label>
-                    <select ng-model="createCompetitorModal.form.challengeName" class="form-control" id="challengeName"
-                            ng-options="challenge as challenge for challenge in createCompetitorModal.challenges">
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="challengeYear" class="control-label">Year:</label>
-                    <select ng-model="createCompetitorModal.form.challengeYear" class="form-control" id="challengeYear"
-                            ng-options="year as year for year in createCompetitorModal.years">
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="counterparty" class="control-label">Assistant:</label>
-                    <select ng-model="createCompetitorModal.form.counterparty" class="form-control" id="counterparty"
-                            ng-options="node as node for node in createCompetitorModal.nodes">
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="name" class="control-label">Name (String):</label>
-                    <input type="text" ng-model="createCompetitorModal.form.name" class="form-control" id="name">
-                </div>
-                <div class="form-group">
-                    <label for="surname" class="control-label">Surname (String):</label>
-                    <input type="text" ng-model="createCompetitorModal.form.surname" class="form-control" id="surname">
-                </div>
-                <div class="form-group">
-                    <label for="employee" class="control-label">Employee (String):</label>
-                    <input type="text" ng-model="createCompetitorModal.form.employee" class="form-control" id="employee">
-                </div>
-                <div class="form-group">
-                    <label for="result" class="control-label">Result (Double):</label>
-                    <input type="text" ng-model="createCompetitorModal.form.result" class="form-control" id="result">
-                </div>
-                <div ng-show="createCompetitorModal.formError" class="form-group">
-                    <div class="alert alert-danger" role="alert">
-                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <span class="sr-only">Error:</span>
-                        Enter valid Competitor submit parameters
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button ng-click="createCompetitorModal.cancel()" type="button" class="btn btn-default">Close</button>
-                <button ng-click="createCompetitorModal.create()" type="button" class="btn btn-primary">Submit Competitor</button>
-            </div>
-        </form>
-    </script>
-    <script type="text/ng-template" id="createCompetitorMsgModal.html">
-        <div class="modal-body" id="create-competitor-modal-body">
-            {{ createCompetitorMsgModal.message }}
-        </div>
-    </script>
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <div ng-show="!pocjpmorganApp.competitors.length" class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">There are no recorded Competitors</h3>
-                </div>
-                <div class="panel-body">Use the "Submit Competitor" button to submit a Competitor.</div>
-            </div>
-            <div ng-show="pocjpmorganApp.competitors.length" class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Recorded Competitors:</h3>
-                </div>
-                <div class="panel-body">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Surname</th>
-                            <th>Employee</th>
-                            <th>Challenge</th>
-                            <th>Year</th>
-                            <th>Challenge Supervisor</th>
-                            <th>Challenge Assistant</th>
-                            <th>Result</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="competitor in pocjpmorganApp.competitors">
-                            <td class="vert-align">{{competitor.name}}</td>
-                            <td class="vert-align">{{competitor.surname}}</td>
-                            <td class="vert-align">{{competitor.employee}}</td>
-                            <td class="vert-align">{{competitor.challengeName}}</td>
-                            <td class="vert-align">{{competitor.challengeYear}}</td>
-                            <td class="vert-align">{{competitor.supervisor}}</td>
-                            <td class="vert-align">{{competitor.assistant}}</td>
-                            <td class="vert-align">{{competitor.result}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
+        <button ng-click="pocjpmorganApp.openCreateCompetitorModal()" type="button" class="btn btn-primary navbar-btn">Submit Competitor</button>
+        <button ng-click="pocjpmorganApp.refresh()" type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-refresh"></span></button>
     </div>
+</nav>
+<script type="text/ng-template" id="createCompetitorModal.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Submit new Competitor</h4>
+    </div>
+    <form>
+        <div class="modal-body">
+            <div class="form-group col-md-8">
+                <label for="challengeName" class="control-label">Challenge Name:</label>
+                <select ng-model="createCompetitorModal.form.challengeName" class="form-control" id="challengeName"
+                        ng-options="challenge as challenge for challenge in createCompetitorModal.challenges">
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="challengeYear" class="control-label">Challenge Year:</label>
+                <select ng-model="createCompetitorModal.form.challengeYear" class="form-control" id="challengeYear"
+                        ng-options="year as year for year in createCompetitorModal.years">
+                </select>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="counterparty" class="control-label">Challenge Assistant:</label>
+                <select ng-model="createCompetitorModal.form.counterparty" class="form-control" id="counterparty"
+                        ng-options="node as node for node in createCompetitorModal.nodes">
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="name" class="control-label">Employee Name :</label>
+                <input type="text" ng-model="createCompetitorModal.form.name" class="form-control" id="name">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="surname" class="control-label">Employee Surname:</label>
+                <input type="text" ng-model="createCompetitorModal.form.surname" class="form-control" id="surname">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="employee" class="control-label">Employee number:</label>
+                <input type="text" ng-model="createCompetitorModal.form.employee" class="form-control" id="employee">
+            </div>
+            <div class="form-group col-md-6" valign="center">
+                <label for="gender" class="control-label">Employee Gender:</label>
+                <div class="radio">
+                    <label><input type="radio" ng-model="createCompetitorModal.form.gender" value="M" id="gender">Male</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" ng-model="createCompetitorModal.form.gender" value="F" id="gender">Female</label>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="place" class="control-label">Competitor Place:</label>
+                <input type="text" ng-model="createCompetitorModal.form.place" class="form-control" id="place">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="genderPlace" class="control-label">Competitor Gender Place:</label>
+                <input type="text" ng-model="createCompetitorModal.form.genderPlace" class="form-control" id="genderPlace">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="bib" class="control-label">Competitor Bib:</label>
+                <input type="text" ng-model="createCompetitorModal.form.bib" class="form-control" id="bib">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="result" class="control-label">Competitor Time:</label>
+                <input type="text" ng-model="createCompetitorModal.form.result" class="form-control" id="result">
+            </div>
+            <div ng-show="createCompetitorModal.formError" class="form-group">
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    Enter valid Competitor submit parameters
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button ng-click="createCompetitorModal.cancel()" type="button" class="btn btn-default">Close</button>
+            <button ng-click="createCompetitorModal.create()" type="button" class="btn btn-primary">Submit Competitor</button>
+        </div>
+    </form>
+</script>
+<script type="text/ng-template" id="createCompetitorMsgModal.html">
+    <div class="modal-body" id="create-competitor-modal-body">
+        {{ createCompetitorMsgModal.message }}
+    </div>
+</script>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div ng-show="!pocjpmorganApp.competitors.length" class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">There are no recorded Competitors</h3>
+            </div>
+            <div class="panel-body">Use the "Submit Competitor" button to submit a Competitor.</div>
+        </div>
+        <div ng-show="pocjpmorganApp.competitors.length" class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Recorded Competitors:</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Gender</th>
+                        <th>Employee</th>
+                        <th>Challenge</th>
+                        <th>Year</th>
+                        <th>Challenge Supervisor</th>
+                        <th>Challenge Assistant</th>
+                        <th>PLC</th>
+                        <th>GPIc</th>
+                        <th>Bib</th>
+                        <th>Time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="competitor in pocjpmorganApp.competitors">
+                        <td class="vert-align">{{competitor.name}}</td>
+                        <td class="vert-align">{{competitor.surname}}</td>
+                        <td class="vert-align">{{competitor.gender}}</td>
+                        <td class="vert-align">{{competitor.employee}}</td>
+                        <td class="vert-align">{{competitor.challengeName}}</td>
+                        <td class="vert-align">{{competitor.challengeYear}}</td>
+                        <td class="vert-align">{{competitor.supervisor}}</td>
+                        <td class="vert-align">{{competitor.assistant}}</td>
+                        <td class="vert-align">{{competitor.place}}</td>
+                        <td class="vert-align">{{competitor.genderPlace}}</td>
+                        <td class="vert-align">{{competitor.bib}}</td>
+                        <td class="vert-align">{{competitor.result}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
 </body>
 </html>

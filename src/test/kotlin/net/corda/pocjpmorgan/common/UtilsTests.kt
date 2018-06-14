@@ -21,7 +21,11 @@ abstract class UtilsTests {
                                                      jorgeLesmes.party,
                                                     "Jose",
                                                     "Lirio",
-                                                    "122136",
+                                                    "M",
+                                                    122136,
+                                                    239,
+                                                    235,
+                                                    20313,
                                                     25.60)
 
 }

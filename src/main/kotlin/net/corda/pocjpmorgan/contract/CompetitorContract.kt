@@ -70,8 +70,12 @@ class CompetitorContract : Contract {
         Constants.CHALLENGE_REFCODE_MUST_NOT_BE_EMPTY using (outputState.challengeRefCode != Constants.EMPTY)
         Constants.COMPETITOR_NAME_MUST_NOT_BE_EMPTY using (outputState.name != Constants.EMPTY)
         Constants.COMPETITOR_SURNAME_MUST_NOT_BE_EMPTY using (outputState.surname != Constants.EMPTY)
-        Constants.COMPETITOR_EMPLOYEE_NUMBER_MUST_NOT_BE_EMPTY using (outputState.employee != Constants.EMPTY)
-        Constants.COMPETITOR_RESULT_MUST_BE_POSITIVE_VALUE using (outputState.result != 0.0)
+        Constants.COMPETITOR_GENDER_MUST_NOT_BE_EMPTY using (outputState.gender != Constants.EMPTY)
+        Constants.COMPETITOR_EMPLOYEE_NUMBER_MUST_POSITIVE_VALUE using (outputState.employee > 0)
+        Constants.COMPETITOR_PLACE_NUMBER_MUST_BE_POSITIVE_VALUE using (outputState.place > 0)
+        Constants.COMPETITOR_GENDER_PLACE_NUMBER_MUST_BE_POSITIVE_VALUE using (outputState.genderPlace > 0)
+        Constants.COMPETITOR_BIB_NUMBER_MUST_BE_POSITIVE_VALUE using (outputState.bib > 0)
+        Constants.COMPETITOR_RESULT_MUST_BE_POSITIVE_VALUE using (outputState.result > 0.0)
         Constants.SUPERVISOR_AND_ASSISTANT_MUST_BE_THE_SIGNERS using (signers == Utils.getPublicKeysFromParticipants(outputState).toSet())
     }
 }

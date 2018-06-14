@@ -44,8 +44,20 @@ object CompetitorSchemaV1 : MappedSchema(schemaFamily = CompetitorSchema.javaCla
             @Column(name = "surname")
             var surname: String,
 
+            @Column(name = "gender")
+            var gender: String,
+
             @Column(name = "employee")
-            var employee: String,
+            var employee: Int,
+
+            @Column(name = "place")
+            var place: Int,
+
+            @Column(name = "genderPlace")
+            var genderPlace: Int,
+
+            @Column(name = "bib")
+            var bib: Int,
 
             @Column(name = "result")
             var result: Double,
@@ -62,6 +74,10 @@ object CompetitorSchemaV1 : MappedSchema(schemaFamily = CompetitorSchema.javaCla
                             Constants.EMPTY,
                             Constants.EMPTY,
                             Constants.EMPTY,
+                           0,
+                           0,
+                           0,
+                           0,
                            0.0,
                             UUID.randomUUID())
     }

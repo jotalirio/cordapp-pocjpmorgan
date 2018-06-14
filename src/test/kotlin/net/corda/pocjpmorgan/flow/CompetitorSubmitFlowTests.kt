@@ -47,7 +47,11 @@ class CompetitorSubmitFlowTests {
                                            jorgeLesmes.info.singleIdentity(),
                                           "Jose",
                                           "Lirio",
-                                          "122136",
+                                          "M",
+                                          122136,
+                                          239,
+                                          235,
+                                          20313,
                                           25.60)
 
         // Running the Network
@@ -94,13 +98,6 @@ class CompetitorSubmitFlowTests {
         mockNetwork.runNetwork()
         assertFailsWith<TransactionVerificationException> { future.getOrThrow() }
 
-        // Check that transaction with a zero result field in CompetitorState fails.
-        val resultEmptyInCompetitor = competitorState.copy(result = 0.0)
-        submitFlow = CompetitorSubmitFlow.Initiator(resultEmptyInCompetitor)
-        future = josepAlvarez.startFlow(submitFlow)
-        mockNetwork.runNetwork()
-        assertFailsWith<TransactionVerificationException> { future.getOrThrow() }
-
         // Check that transaction with an empty name field in CompetitorState fails.
         val nameEmptyInCompetitor = competitorState.copy(name = Constants.EMPTY)
         submitFlow = CompetitorSubmitFlow.Initiator(nameEmptyInCompetitor)
@@ -115,12 +112,48 @@ class CompetitorSubmitFlowTests {
         mockNetwork.runNetwork()
         assertFailsWith<TransactionVerificationException> { future.getOrThrow() }
 
+        // Check that transaction with an empty gender field in CompetitorState fails.
+        val genderEmptyInCompetitor = competitorState.copy(gender = Constants.EMPTY)
+        submitFlow = CompetitorSubmitFlow.Initiator(genderEmptyInCompetitor)
+        future = josepAlvarez.startFlow(submitFlow)
+        mockNetwork.runNetwork()
+        assertFailsWith<TransactionVerificationException> { future.getOrThrow() }
+
         // Check that transaction with an empty employee field in CompetitorState fails.
-        val employeeEmptyInCompetitor = competitorState.copy(employee = Constants.EMPTY)
+        val employeeEmptyInCompetitor = competitorState.copy(employee = 0)
         submitFlow = CompetitorSubmitFlow.Initiator(employeeEmptyInCompetitor)
         future = josepAlvarez.startFlow(submitFlow)
         mockNetwork.runNetwork()
         assertFailsWith<TransactionVerificationException> { future.getOrThrow() }
+
+        // Check that transaction with an empty place field in CompetitorState fails.
+        val placeEmptyInCompetitor = competitorState.copy(place = 0)
+        submitFlow = CompetitorSubmitFlow.Initiator(placeEmptyInCompetitor)
+        future = josepAlvarez.startFlow(submitFlow)
+        mockNetwork.runNetwork()
+        assertFailsWith<TransactionVerificationException> { future.getOrThrow() }
+
+        // Check that transaction with an empty gender place field in CompetitorState fails.
+        val genderPlaceEmptyInCompetitor = competitorState.copy(genderPlace = 0)
+        submitFlow = CompetitorSubmitFlow.Initiator(genderPlaceEmptyInCompetitor)
+        future = josepAlvarez.startFlow(submitFlow)
+        mockNetwork.runNetwork()
+        assertFailsWith<TransactionVerificationException> { future.getOrThrow() }
+
+        // Check that transaction with an empty bib field in CompetitorState fails.
+        val bibEmptyInCompetitor = competitorState.copy(bib = 0)
+        submitFlow = CompetitorSubmitFlow.Initiator(bibEmptyInCompetitor)
+        future = josepAlvarez.startFlow(submitFlow)
+        mockNetwork.runNetwork()
+        assertFailsWith<TransactionVerificationException> { future.getOrThrow() }
+
+        // Check that transaction with a zero result field in CompetitorState fails.
+        val resultEmptyInCompetitor = competitorState.copy(result = 0.0)
+        submitFlow = CompetitorSubmitFlow.Initiator(resultEmptyInCompetitor)
+        future = josepAlvarez.startFlow(submitFlow)
+        mockNetwork.runNetwork()
+        assertFailsWith<TransactionVerificationException> { future.getOrThrow() }
+
     }
 
     @Test
@@ -202,7 +235,11 @@ class CompetitorSubmitFlowTests {
             assertEquals(recordedState.assistant, jorgeLesmes.info.singleIdentity())
             assertEquals(recordedState.name, competitorState.name)
             assertEquals(recordedState.surname, competitorState.surname)
+            assertEquals(recordedState.gender, competitorState.gender)
             assertEquals(recordedState.employee, competitorState.employee)
+            assertEquals(recordedState.place, competitorState.place)
+            assertEquals(recordedState.genderPlace, competitorState.genderPlace)
+            assertEquals(recordedState.bib, competitorState.bib)
             assertEquals(recordedState.result, competitorState.result)
 
         }
@@ -229,7 +266,11 @@ class CompetitorSubmitFlowTests {
                 assertEquals(recordedState.assistant, jorgeLesmes.info.singleIdentity())
                 assertEquals(recordedState.name, competitorState.name)
                 assertEquals(recordedState.surname, competitorState.surname)
+                assertEquals(recordedState.gender, competitorState.gender)
                 assertEquals(recordedState.employee, competitorState.employee)
+                assertEquals(recordedState.place, competitorState.place)
+                assertEquals(recordedState.genderPlace, competitorState.genderPlace)
+                assertEquals(recordedState.bib, competitorState.bib)
                 assertEquals(recordedState.result, competitorState.result)
             }
         }

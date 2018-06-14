@@ -149,11 +149,11 @@ class CompetitorContractTests : UtilsContractTests() {
 
     @Test
     fun `The name property in the output CompetitorState must not be empty`() {
-        val nameEmployeeEmptyInCompetitor = competitorState.copy(name = Constants.EMPTY)
+        val nameEmptyInCompetitor = competitorState.copy(name = Constants.EMPTY)
         ledgerServices.ledger {
             transaction {
                 command(getPartyPublicKey(josepAlvarez, jorgeLesmes), CompetitorContract.Commands.Submit())
-                output(CompetitorContract.COMPETITOR_CONTRACT_ID, nameEmployeeEmptyInCompetitor)
+                output(CompetitorContract.COMPETITOR_CONTRACT_ID, nameEmptyInCompetitor)
                 this `fails with` Constants.COMPETITOR_NAME_MUST_NOT_BE_EMPTY
             }
             transaction {
@@ -166,11 +166,11 @@ class CompetitorContractTests : UtilsContractTests() {
 
     @Test
     fun `The surname property in the output CompetitorState must not be empty`() {
-        val surnameEmployeeEmptyInCompetitor = competitorState.copy(surname = Constants.EMPTY)
+        val surnameEmptyInCompetitor = competitorState.copy(surname = Constants.EMPTY)
         ledgerServices.ledger {
             transaction {
                 command(getPartyPublicKey(josepAlvarez, jorgeLesmes), CompetitorContract.Commands.Submit())
-                output(CompetitorContract.COMPETITOR_CONTRACT_ID, surnameEmployeeEmptyInCompetitor)
+                output(CompetitorContract.COMPETITOR_CONTRACT_ID, surnameEmptyInCompetitor)
                 this `fails with` Constants.COMPETITOR_SURNAME_MUST_NOT_BE_EMPTY
             }
             transaction {
@@ -182,13 +182,81 @@ class CompetitorContractTests : UtilsContractTests() {
     }
 
     @Test
+    fun `The gender property in the output CompetitorState must not be empty`() {
+        val genderEmptyInCompetitor = competitorState.copy(gender = Constants.EMPTY)
+        ledgerServices.ledger {
+            transaction {
+                command(getPartyPublicKey(josepAlvarez, jorgeLesmes), CompetitorContract.Commands.Submit())
+                output(CompetitorContract.COMPETITOR_CONTRACT_ID, genderEmptyInCompetitor)
+                this `fails with` Constants.COMPETITOR_GENDER_MUST_NOT_BE_EMPTY
+            }
+            transaction {
+                output(CompetitorContract.COMPETITOR_CONTRACT_ID, competitorState)
+                command(getPartyPublicKey(josepAlvarez, jorgeLesmes), CompetitorContract.Commands.Submit())
+                this.verifies()
+            }
+        }
+    }
+
+    @Test
     fun `The employee property in the output CompetitorState must not be empty`() {
-        val employeeNumberEmptyInCompetitor = competitorState.copy(employee = Constants.EMPTY)
+        val employeeNumberEmptyInCompetitor = competitorState.copy(employee = 0)
         ledgerServices.ledger {
             transaction {
                 command(getPartyPublicKey(josepAlvarez, jorgeLesmes), CompetitorContract.Commands.Submit())
                 output(CompetitorContract.COMPETITOR_CONTRACT_ID, employeeNumberEmptyInCompetitor)
-                this `fails with` Constants.COMPETITOR_EMPLOYEE_NUMBER_MUST_NOT_BE_EMPTY
+                this `fails with` Constants.COMPETITOR_EMPLOYEE_NUMBER_MUST_POSITIVE_VALUE
+            }
+            transaction {
+                output(CompetitorContract.COMPETITOR_CONTRACT_ID, competitorState)
+                command(getPartyPublicKey(josepAlvarez, jorgeLesmes), CompetitorContract.Commands.Submit())
+                this.verifies()
+            }
+        }
+    }
+
+    @Test
+    fun `The place property in the output CompetitorState must not be empty`() {
+        val placeEmptyInCompetitor = competitorState.copy(place = 0)
+        ledgerServices.ledger {
+            transaction {
+                command(getPartyPublicKey(josepAlvarez, jorgeLesmes), CompetitorContract.Commands.Submit())
+                output(CompetitorContract.COMPETITOR_CONTRACT_ID, placeEmptyInCompetitor)
+                this `fails with` Constants.COMPETITOR_PLACE_NUMBER_MUST_BE_POSITIVE_VALUE
+            }
+            transaction {
+                output(CompetitorContract.COMPETITOR_CONTRACT_ID, competitorState)
+                command(getPartyPublicKey(josepAlvarez, jorgeLesmes), CompetitorContract.Commands.Submit())
+                this.verifies()
+            }
+        }
+    }
+
+    @Test
+    fun `The genderPlace property in the output CompetitorState must not be empty`() {
+        val genderPlaceEmptyInCompetitor = competitorState.copy(genderPlace = 0)
+        ledgerServices.ledger {
+            transaction {
+                command(getPartyPublicKey(josepAlvarez, jorgeLesmes), CompetitorContract.Commands.Submit())
+                output(CompetitorContract.COMPETITOR_CONTRACT_ID, genderPlaceEmptyInCompetitor)
+                this `fails with` Constants.COMPETITOR_GENDER_PLACE_NUMBER_MUST_BE_POSITIVE_VALUE
+            }
+            transaction {
+                output(CompetitorContract.COMPETITOR_CONTRACT_ID, competitorState)
+                command(getPartyPublicKey(josepAlvarez, jorgeLesmes), CompetitorContract.Commands.Submit())
+                this.verifies()
+            }
+        }
+    }
+
+    @Test
+    fun `The bib property in the output CompetitorState must not be empty`() {
+        val bibEmptyInCompetitor = competitorState.copy(bib = 0)
+        ledgerServices.ledger {
+            transaction {
+                command(getPartyPublicKey(josepAlvarez, jorgeLesmes), CompetitorContract.Commands.Submit())
+                output(CompetitorContract.COMPETITOR_CONTRACT_ID, bibEmptyInCompetitor)
+                this `fails with` Constants.COMPETITOR_BIB_NUMBER_MUST_BE_POSITIVE_VALUE
             }
             transaction {
                 output(CompetitorContract.COMPETITOR_CONTRACT_ID, competitorState)

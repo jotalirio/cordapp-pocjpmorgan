@@ -81,15 +81,31 @@ class PocjpmorganApi(val rpcOps: CordaRPCOps) {
                          @QueryParam(value = "party") party: String,
                          @QueryParam(value = "name") name: String,
                          @QueryParam(value = "surname") surname: String,
-                         @QueryParam(value = "employee") employee: String,
+                         @QueryParam(value = "gender") gender: String,
+                         @QueryParam(value = "employee") employee: Int,
+                         @QueryParam(value = "place") place: Int,
+                         @QueryParam(value = "genderPlace") genderPlace: Int,
+                         @QueryParam(value = "bib") bib: Int,
                          @QueryParam(value = "result") result: Double): Response {
 
         // Previous validations
-//        if (result < 0.0 ) {
-//            return Response.status(Response.Status.BAD_REQUEST).entity("Query parameter 'Time' must be non-negative.\n").build()
-//        }
-//        if (party == null) {
+//        if (party == null or party == Constants.EMPTY) {
 //            return Response.status(Response.Status.BAD_REQUEST).entity("Query parameter 'Assistant' missing or has wrong format.\n").build()
+//        }
+//        if (employee < 0 ) {
+//            return Response.status(Response.Status.BAD_REQUEST).entity("Query parameter 'Employee' must be non-negative or zero.\n").build()
+//        }
+//        if (place < 0 ) {
+//            return Response.status(Response.Status.BAD_REQUEST).entity("Query parameter 'Place' must be non-negative or zero.\n").build()
+//        }
+//        if (genderPlace < 0 ) {
+//            return Response.status(Response.Status.BAD_REQUEST).entity("Query parameter 'Gender Place' must be non-negative or zero.\n").build()
+//        }
+//        if (bib < 0 ) {
+//            return Response.status(Response.Status.BAD_REQUEST).entity("Query parameter 'Bib' must be non-negative or zero.\n").build()
+//        }
+//        if (result < 0.0 ) {
+//            return Response.status(Response.Status.BAD_REQUEST).entity("Query parameter 'Time' must be non-negative or zero.\n").build()
 //        }
 
         // 1. Get party objects: Supervisor (the Initiator of a Transaction) and Assistant (the counterparty in a Transaction)
@@ -99,8 +115,19 @@ class PocjpmorganApi(val rpcOps: CordaRPCOps) {
 
         // 2. Create a CompetitorState object.
         val challengeRefCode = "$challengeName-$challengeYear"
-        val competitorState = CompetitorState(challengeName, challengeYear, challengeRefCode,
-                                              supervisor, assistant, name, surname, employee, result)
+        val competitorState = CompetitorState(challengeName,
+                                              challengeYear,
+                                              challengeRefCode,
+                                              supervisor,
+                                              assistant,
+                                              name,
+                                              surname,
+                                              gender,
+                                              employee,
+                                              place,
+                                              genderPlace,
+                                              bib,
+                                              result)
 
         // 3. Start the CompetitorSubmitFlow. We block and wait for the flow to return.
         val (status, message) = try {

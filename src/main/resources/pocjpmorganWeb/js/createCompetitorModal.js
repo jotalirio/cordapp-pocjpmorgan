@@ -24,20 +24,27 @@ angular.module('pocjpmorganAppModule').controller('CreateCompetitorModalCtrl', f
             const party = createCompetitorModal.form.counterparty; // Assistant
             const name = createCompetitorModal.form.name;
             const surname = createCompetitorModal.form.surname;
+            const gender = createCompetitorModal.form.gender;
             const employee = createCompetitorModal.form.employee;
+            const place = createCompetitorModal.form.place;
+            const genderPlace = createCompetitorModal.form.genderPlace;
+            const bib = createCompetitorModal.form.bib;
             const result = createCompetitorModal.form.result;
 
             // Closing the modal
             $uibModalInstance.close();
 
             // Define the Competitor creation endpoint.
-            const submitCompetitorEndpoint = apiBaseURL + `submit-competitor?challengeName=${challengeName}
-                                                                             &challengeYear=${challengeYear}
-                                                                             &party=${party}
-                                                                             &name=${name}
-                                                                             &surname=${surname}
-                                                                             &employee=${employee}
-                                                                             &result=${result}`;
+            const submitCompetitorEndpoint = apiBaseURL + `submit-competitor?challengeName=${challengeName}`
+                                                                         + `&challengeYear=${challengeYear}`
+                                                                         + `&party=${party}&name=${name}`
+                                                                         + `&surname=${surname}`
+                                                                         + `&gender=${gender}`
+                                                                         + `&employee=${employee}`
+                                                                         + `&place=${place}`
+                                                                         + `&genderPlace=${genderPlace}`
+                                                                         + `&bib=${bib}`
+                                                                         + `&result=${result}`;
 
             // We hit the endpoint to create the Competitor and handle success/failure responses.
             $http.put(submitCompetitorEndpoint).then(
@@ -67,14 +74,17 @@ angular.module('pocjpmorganAppModule').controller('CreateCompetitorModalCtrl', f
 
     // Validates the Competitor to submit.
     function invalidFormInput() {
-        return isNaN(createCompetitorModal.form.result)
-                || (createCompetitorModal.form.challengeName === undefined)
-                || (createCompetitorModal.form.challengeYear === undefined)
-                || (createCompetitorModal.form.counterparty === undefined)
-                || (createCompetitorModal.form.name === undefined)
-                || (createCompetitorModal.form.surname === undefined)
-                || (createCompetitorModal.form.employee === undefined)
-                || (createCompetitorModal.form.result === undefined);
+        return isNaN(createCompetitorModal.form.employee)
+               || isNaN(createCompetitorModal.form.place)
+               || isNaN(createCompetitorModal.form.genderPlace)
+               || isNaN(createCompetitorModal.form.bib)
+               || isNaN(createCompetitorModal.form.result)
+               || (createCompetitorModal.form.challengeName === undefined)
+               || (createCompetitorModal.form.challengeYear === undefined)
+               || (createCompetitorModal.form.counterparty === undefined)
+               || (createCompetitorModal.form.name === undefined)
+               || (createCompetitorModal.form.surname === undefined)
+               || (createCompetitorModal.form.gender === undefined);
     }
 });
 
